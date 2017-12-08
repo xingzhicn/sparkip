@@ -104,7 +104,7 @@ filtered_data.foreachRDD(new VoidFunction2<JavaRDD<Map<String, Object>>, Time>()
                     }
                 }).unpersist();
 ```
-这里使用的是二分法查找，具体的代码可以在我的github上下载
+工具类在根目录下
 
 ## 下载链接
 >ip表的数据
