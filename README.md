@@ -22,7 +22,7 @@ ip query attribution spark implementation
 
 **关于定位在这里我们只需要精确到城市，所以只需要三个字段，ip地址起始值和结束值，还有对应的城市，startip、stopip、city，分别对应3、4、8行**
 
-字段| 对应行数
+字段| 对应列数
 -------- | ---
 startip| 3
 stopip| 4
