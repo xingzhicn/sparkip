@@ -6,8 +6,6 @@ ip query attribution spark implementation
 
 -------------------
 
-[TOC]
-
 ##前言
 
 
@@ -112,10 +110,4 @@ filtered_data.foreachRDD(new VoidFunction2<JavaRDD<Map<String, Object>>, Time>()
 >ip表的数据
 http://download.csdn.net/download/qq392039757/10151360
 
->工具类代码
-https://github.com/xingzhicn/sparkip
-
-##参考代码
-http://blog.csdn.net/tianjun2012/article/details/55050144
-https://github.com/lionsoul2014/ip2region
 
