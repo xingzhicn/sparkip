@@ -61,8 +61,6 @@ ip库是从淘宝买的，csdn下载地址放在末尾，首先将我们的文�
 
         List<String> ipCollect = jsc.textFile("hdfs://master:8020/user/ip.txt").collect();
         List<String[]> ipList = new ArrayList<>();
-                 List<String> ipCollect = jsc.textFile("hdfs://master:8020/user/ip.txt").collect();
-        List<String[]> ipList = new ArrayList<>();
         try {
             for (String line : ipCollect) {
                 if (!"".equals(line)) {
