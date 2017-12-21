@@ -101,7 +101,7 @@ filtered_data.foreachRDD(new VoidFunction2<JavaRDD<Map<String, Object>>, Time>()
                         System.err.println("error process: AdJobService ipJavaRDD" + e.getMessage());
                         throw e;
                     }
-                }).unpersist();
+                });
 ```
 工具类在根目录下
 
