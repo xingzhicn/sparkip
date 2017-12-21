@@ -87,20 +87,22 @@ filtered_data.foreachRDD(new VoidFunction2<JavaRDD<Map<String, Object>>, Time>()
             @Override
             public void call(JavaRDD<Map<String, Object>> rdd, Time time) throws Exception {
                 // Get or register the ip Broadcast
-                final Broadcast<List<String[]>> ipArray = JavaWordIp.getInstance(new JavaSparkContext(rdd.context()), ipList);
-                JavaRDD<Row> rowRDD = rdd.map(x -> {
-                    try {
-                        String ip = "ip";
-                        if (x.get(ip) != null || IpUtil.isIpAddress(x.get(ip).toString())) {
-                            Long l = IpUtil.ip2long(x.get(ip).toString());
-                            String region = IpUtil.binarySearch(ipArray.value(), l);
-                            x.put(ip, region);
-                        }
-                        return x;
-                    } catch (Exception e) {
-                        System.err.println("error process: AdJobService ipJavaRDD" + e.getMessage());
-                        throw e;
-                    }
+                final Broadcast<List<String[]>> ipArray = JavaWordIp.getInstance(new JavaSparkContext(rdd.context()));
+
+                JavaRDD<Row> rowRDD = rdd
+                        .map(x -> {
+                            try {
+                                if (x.get("ip").toString() != null || IpUtil.isIpAddress(x.get("ip").toString())) {
+                                    Long l = IpUtil.ip2long(x.get("ip").toString());
+                                    String region = IpUtil.binarySearch(ipArray.value(), l);
+                                    x.put("region", region);
+                                }
+                                return x;
+                            } catch (Exception e) {
+                                System.err.println("error process: AdJobService ipJavaRDD" + e.getMessage());
+                                throw e;
+                            }
+                        })
                 });
 ```
 工具类在根目录下
