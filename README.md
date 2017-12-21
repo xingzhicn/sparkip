@@ -58,6 +58,7 @@ ip库是从淘宝买的，csdn下载地址放在末尾，首先将我们的文�
         // spark streaming context
         JavaStreamingContext ssc = new JavaStreamingContext(jsc, Durations.milliseconds(4000));
         ssc.checkpoint("/checkpoint");
+        ... ...
 
         List<String> ipCollect = jsc.textFile("hdfs://master:8020/user/ip.txt").collect();
         List<String[]> ipList = new ArrayList<>();
@@ -85,9 +86,9 @@ ip库是从淘宝买的，csdn下载地址放在末尾，首先将我们的文�
 filtered_data.foreachRDD(new VoidFunction2<JavaRDD<Map<String, Object>>, Time>() {
             @Override
             public void call(JavaRDD<Map<String, Object>> rdd, Time time) throws Exception {
+                // Get or register the ip Broadcast
+                final Broadcast<List<String[]>> ipArray = JavaWordIp.getInstance(new JavaSparkContext(rdd.context()), ipList);
                 JavaRDD<Row> rowRDD = rdd.map(x -> {
-                    // Get or register the ip Broadcast
-                    final Broadcast<List<String[]>> ipArray = JavaWordIp.getInstance(new JavaSparkContext(rdd.context()), ipList);
                     try {
                         String ip = "ip";
                         if (x.get(ip) != null || IpUtil.isIpAddress(x.get(ip).toString())) {
